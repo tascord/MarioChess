@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 /* Login & setup client */
-client.login('ODMxNzU1NDg5MTA4MDMzNTc4.YHZ2qQ.kTGlhFvqwOpX8FvE8H7VzJLetvI');
+client.login('chess token here lol');
 client.once('ready', () => {
     console.log('Ready!');
     client.user.setActivity('chess')
