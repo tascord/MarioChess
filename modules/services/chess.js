@@ -30,9 +30,12 @@ exports.start_game = (white, black, guild) => {
  */
 exports.message = (content, message) => {
 
-    let game = Object.entries(message.client.services.chess.Games).find(e => Object.entries(e[1].players).find(e => e[1].id == message.author.id))
+    let game = Object.entries(message.client.services.chess.Games).find(e => Object.entries(e[1].players).find(e => e[1].id == message.author.id));
     
     if(!game) return false;
+    game = game[1];
+
+    if(message.channel !== game.channel) return false;
     game.turn(Object.entries(game.players).find(e => e[1].id == message.author.id), content);
 
     return true;
