@@ -129,12 +129,14 @@ module.exports = class Xeno {
         let run = this.get_command_by_name(command);
 
         if (!run && testing) return this.logger.log(`No command named '${command}'.`);
+        else if (!run) return;
+
         if (run.runas[command]) args = run.runas[command].concat(args);
 
         // Permission only commands
-        if(run.permissions[0]) {
-            
-            if(!message.member.permissions.has(run.permissions)) {
+        if (run.permissions[0]) {
+
+            if (!message.member.permissions.has(run.permissions)) {
 
                 let error_embed = new MessageEmbed()
                     .setColor(0xff006a)
@@ -142,7 +144,7 @@ module.exports = class Xeno {
                     .setDescription('You don\'t have the needed permissions to run that command.');
 
                 return message.channel.send(error_embed);
-    
+
             }
 
         }
@@ -154,15 +156,15 @@ module.exports = class Xeno {
             .then(embed => message.channel.send(embed))
             .catch(data => {
 
-                if(data instanceof(Error)) this.logger.warn(`[CMD ${run.name} • FRAMEWORK] Error: '${data.name}' | ${data.message}\n${data.stack || 'No stacktrace.'}`);
+                if (data instanceof (Error)) this.logger.warn(`[CMD ${run.name} • FRAMEWORK] Error: '${data.name}' | ${data.message}\n${data.stack || 'No stacktrace.'}`);
 
                 let title = data, description;
 
-                if(typeof(data) == 'object') {
+                if (typeof (data) == 'object') {
                     title = data[0];
                     description = data[1];
 
-                    if(!description) {
+                    if (!description) {
                         description = title;
                         title = null;
                     }

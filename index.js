@@ -35,5 +35,4 @@ xeno.progress = (value, max, min = 0, length = 10) => {
 
     return character_set.join('');
 
-
 }

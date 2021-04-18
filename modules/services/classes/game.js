@@ -1,5 +1,6 @@
-const { Guild } = require("discord.js");
+const { Guild, PermissionOverwrites, Collection } = require("discord.js");
 const { Chess } = require('chess.js');
+const Opponent = require("./opponent");
 
 module.exports = class Game {
 
@@ -36,13 +37,34 @@ module.exports = class Game {
 
         }
 
+        // Channel permissions        
+        let permissions = category ? category.permissionOverwrites : new Collection();
+        permissions.set(this.players.white.id, { id: this.players.white.id, allow: ['VIEW_CHANNEL', 'SEND_MESSAGES'] });
+        permissions.set(this.players.black.id, { id: this.players.black.id, allow: ['VIEW_CHANNEL', 'SEND_MESSAGES'] });
+
         // Create channel
-        this.guild.channels.create(`Chess-${Math.random().toString()}`, {
+        this.guild.channels.create(`Chess-${Date.now()}`, {
             parent: category,
-            reason: "CHESS WOOOOOOOOOOOOOOOOOO",
+            reason: "New chess match started.",
+            permissionOverwrites: permissions
         })
             .then(channel => this.channel = channel)
             .catch(console.warn);
+
+    }
+
+    /**
+     * Make a move
+     * @param {Opponent} player Player making move.
+     * @param {String} move Move the player makes
+     */
+    __raw_turn = (player, move) => {
+
+        
+
+    }
+
+    turn = (player, move) => {
 
     }
 

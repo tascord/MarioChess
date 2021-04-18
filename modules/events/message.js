@@ -53,6 +53,9 @@ exports.run = (message, xeno) => {
 
     }
 
+    // Run moves
+    if(message.client.services['chess'].message(message.content, message)) return;
+
     // Run commands
     xeno.run_command(server.settings.prefix.value, message.content, message);
 
